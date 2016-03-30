@@ -1,0 +1,156 @@
+﻿<html>
+	<head>
+		<title>Ивашкевич Елена ПИ3-2</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="scripts/ascript.js"></script>
+	</head>
+	<body>
+		<br>
+		<fieldset>
+			<b>Ивашкевич Елена ПИ3-2</b><br>
+			Задание 4 jquery <br>
+			Вариант: 5<br>
+			Варианты заданий:  <br>
+			Селекторы: Будут выбраны все элементы со значениями атрибута src заканчивающимися на .gif.  Будут выбраны все элементы на странице со значениями атрибутов class="par", class="header" и id='heat'.<br>
+			Варианты действий:<br>
+			-Изменить размер шрифта<br>
+			-Изменить цвет шрифта<br>
+			-Удаление указанного атрибута у выбранного элемента. ( removeAttr())<br>
+			-Вставка произвольного текст после внутреннего содержимого выбранного элемента.( append() )<br>
+			
+		</fieldset>
+		
+		<br><b>A5 Изменение цвета фона INPUT</b> <br><br>
+		<input type="text" placeholder="Введите цвет фона" id="color"><br><br> 
+		<div class="pure-controls">
+			<button id="changecolor" class="pure-button">Изменить цвет фона</button>
+		</div>
+		<br><br>
+		
+		<br><b>B2 Вывод элемента SELECT из массива</b> <br><br>
+		<div class="pure-controls">		
+			<button id="return_btn_2" class="pure-button">Построить список</button> <br><br>
+		</div> 
+		
+		<form name='form1'>
+			<select name="spisok" id="pl"> </select> <br><br>
+			<b>D4</b><br>
+			<input type="text" size="25" id="d4"><br>
+			<div class="pure-controls">		
+				<input id="fec" type="button" class="pure-button" value="firstElementChild"><br><br>
+				<input id="lec"type="button" class="pure-button" value="lastElementChild"><br><br>
+				<input id="pes" type="button" class="pure-button" value="previousElementSibling"><br><br>
+				<input id="nes" type="button" class="pure-button" value="nextElementSibling"><br>
+			</div>
+		</form>				
+				
+		<b>Добавление нового элемента в SELECT</b> <br><br>
+		<input type="text" placeholder="Введите имя нового элемента" size="30" id="newel"><br><br>
+		<div class="pure-controls">
+			<button id="AddNewElement" class="pure-button">Добавить новый элемент</button><br><br>
+			 <button id="btn_green" class="pure-button" disabled>Увеличить шрифт и изменить цвет на зеленый</button><br><br>
+			 <button id="btn_removeAttr" class="pure-button">Сделать активным кнопку, отвечающую за изменение шрифта (Удаление атрибута у элемента)</button><br><br>
+			 <button id="btn_AddTextInput" class="pure-button" > Добавление произвольного текста после input</button><br><br>
+			  <button id="btn_selectgif" class="pure-button" > Выбрать .gif и скрыть его</button><br><br>
+			  <button id="btn_10selector" class="pure-button" > Со значениями атрибутов class="par", class="header" и id='heat' </button><br><br>
+		</div>
+			
+		<script>
+			//Изменение цвета фона
+			$("#changecolor").click(function(){
+				document.bgColor=(document.getElementById("color").value);
+			}); 
+			
+			//Добавление нового элемента
+			$("#AddNewElement").click(function(){
+				var xai = document.getElementById('pl');
+				var op = document.createElement('option');
+    
+					op.value = 'm1';
+					op.innerHTML = document.getElementById("newel").value;     
+					xai.appendChild(op);
+			}); 
+
+			var array = new Array("1", "2", "3", "4", "5", "6", "7")
+			<!-- Построение из массива SELECT элемента -->
+			function buildElement()
+				{	
+					with (document.form1.spisok)
+						{ 
+							options.length = array.length 
+							for (var i=0; i < array.length; i++) 
+							{			
+								options[i].id = i+1 + ": " + array[i]
+								options[i].text = i+1 + ": " + array[i] 
+							}		
+						}
+					var text = document.body.children[17].children[0].firstElementChild.innerHTML
+					d4.value = text
+				}
+			$("#return_btn_2").click(function(){
+				buildElement();
+			}); 
+			
+			 // Навигация D4
+			$("#fec").click(function(){	
+				var text = document.body.children[17].children[0].firstElementChild.innerHTML
+				d4.value = text
+			});
+			
+			$("#lec").click(function(){	
+				var text = document.body.children[17].children[0].lastElementChild.innerHTML
+				d4.value = text	
+			});
+			
+			$("#pes").click(function(){	
+				var text = document.getElementById(d4.value).previousElementSibling.innerHTML
+				d4.value = text					
+			});
+			
+			$("#nes").click(function(){	
+				var text = document.getElementById(d4.value).nextElementSibling.innerHTML
+				d4.value = text						
+			});
+			
+			//Удаление атрибута у элемента. ( removeAttr())
+			$("#btn_removeAttr").click(function(){
+				$("#btn_green").removeAttr("disabled");				
+			});
+			 
+			//Изменить цвет шрифта.Изменить размер шрифта
+			$("#btn_green").click(function(){
+				$("body").css({ 'color': 'green', 'font-size': '150%' });
+				$("button").css({ 'color': 'green', 'font-size': '150%' });
+			});		
+			
+			//Будут выбраны все элементы со значениями атрибута src заканчивающимися на .gif и скрыты.
+			$("#btn_selectgif").click(function(){
+				$("[src$='.gif']").hide();						
+			});	
+			
+			//Будут выбраны все элементы на странице со значениями атрибутов class="par", class="header" и id='heat'.
+			$("#btn_10selector").click(function(){
+				$(".par,.header,#heat").css({'backgroundColor': 'blue'});
+										
+			});	
+
+			//Будут выбраны все элементы на странице со значениями атрибутов class="par", class="header" и id='heat'.
+			$("#btn_AddTextInput").click(function(){
+				$(":input").append( 'New text');											
+			});	
+			
+
+		</script>	
+		
+		 <p><img src="large.gif" alt="Котик"></p>
+		
+		
+				<button id="heat" class="pure-button" > Элемент со значениями атрибута id='heat' </button><br><br>
+		
+	</body>
+	
+	
+	
+</html>
